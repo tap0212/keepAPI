@@ -41,17 +41,19 @@ exports.getNoteById = (req, res, next, id) => {
   };
 
   exports.updateNote = (req, res) => {
-    const note = req.note;
-    note.title = req.body.title;
-    note.note = req.body.note
-    note.save((err, updatedNote) => {
-      if (err) {
-        return res.status(400).json({
-          error: `Error: ${err}`
-        });
+    Note.findByIdAndUpdate(
+      {_id: req.note._id},
+      {$set: req.body},
+      {new:true, useFindAndModify:false},
+      (err, note) => {
+        if (err) {
+          return res.status(400).json({
+            error: "You are not authorized to update this user"
+          });
+        }
+        res.json(note);
       }
-      res.json(updatedNote);
-    });
+    )
   };
   
   exports.removeNote = (req, res) => {
