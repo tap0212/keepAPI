@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             required:true,
             trim:true,
+            unique: true,
             maxlength:10
         },
         encry_password: {
