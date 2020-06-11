@@ -47,7 +47,7 @@ exports.getNoteById = (req, res, next, id) => {
     note.save((err, updatedNote) => {
       if (err) {
         return res.status(400).json({
-          error: "Failed to update "
+          error: `Error: ${err}`
         });
       }
       res.json(updatedNote);
